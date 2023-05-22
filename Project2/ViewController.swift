@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Show Score", style: .done, target: self, action: #selector(showScore))
+        
         button1.layer.borderWidth = 1
         button2.layer.borderWidth = 1
         button3.layer.borderWidth = 1
@@ -70,5 +72,11 @@ class ViewController: UIViewController {
             ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
             present(ac, animated: true)
         }
+    }
+    
+    @objc func showScore() {
+        let alertVC = UIAlertController(title: "Your score is \(score)", message: nil, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alertVC, animated: true)
     }
 }
