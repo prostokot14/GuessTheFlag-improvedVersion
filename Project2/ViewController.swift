@@ -7,16 +7,19 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
+    // MARK: - IBOutlet
     @IBOutlet var button1: UIButton!
     @IBOutlet var button2: UIButton!
     @IBOutlet var button3: UIButton!
-    
-    var countries = [String]()
-    var correctAnswer = 0
-    var score = 0
-    var countOfAnswers = 0
-    
+
+    // MARK: - Private Properties
+    private var countries = [String]()
+    private var correctAnswer = 0
+    private var score = 0
+    private var countOfAnswers = 0
+
+    // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,18 +37,8 @@ class ViewController: UIViewController {
         
         askQuestion(action: nil)
     }
-    
-    func askQuestion(action: UIAlertAction!) {
-        countries.shuffle()
-        
-        button1.setImage(UIImage(named: countries[0]), for: .normal)
-        button2.setImage(UIImage(named: countries[1]), for: .normal)
-        button3.setImage(UIImage(named: countries[2]), for: .normal)
-        
-        correctAnswer = Int.random(in: 0...2)
-        title = countries[correctAnswer].uppercased() + " Score: \(score)"
-    }
-    
+
+    // MARK: - IBAction
     @IBAction func buttonTapped(_ sender: UIButton) {
         var title: String
 
@@ -73,8 +66,20 @@ class ViewController: UIViewController {
             present(ac, animated: true)
         }
     }
+
+    // MARK: - Private Methods
+    private func askQuestion(action: UIAlertAction!) {
+        countries.shuffle()
+        
+        button1.setImage(UIImage(named: countries[0]), for: .normal)
+        button2.setImage(UIImage(named: countries[1]), for: .normal)
+        button3.setImage(UIImage(named: countries[2]), for: .normal)
+        
+        correctAnswer = Int.random(in: 0...2)
+        title = countries[correctAnswer].uppercased() + " Score: \(score)"
+    }
     
-    @objc func showScore() {
+    @objc private func showScore() {
         let alertVC = UIAlertController(title: "Your score is \(score)", message: nil, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .default))
         present(alertVC, animated: true)
